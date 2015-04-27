@@ -1,0 +1,63 @@
+#Ref: https://github.com/Malkavian/tuts/blob/master/stm/blinky/Makefile
+#Ref: http://wiki.csie.ncku.edu.tw/embedded/Lab6
+
+STM32_LIB  = ../../Libraries
+STM32_UTIL = ../../Utilities
+
+vpath %.c $(STM32_LIB)/STM32F4xx_StdPeriph_Driver/src
+
+SRCS	 += main.c
+
+CC 			= arm-none-eabi-gcc
+OBJCOPY = arm-none-eabi-objcopy
+GDB     = arm-none-eabi-gdb
+
+SRCS   += system_stm32f4xx.c
+
+SRCS   += $(STM32_LIB)/CMSIS/ST/STM32F4xx/Source/Templates/gcc_ride7/startup_stm32f4xx.s
+
+INC_DIRS  = $(STM32_UTIL)/STM32F4-Discovery
+INC_DIRS += $(STM32_LIB)/CMSIS/Include
+INC_DIRS += $(STM32_LIB)/CMSIS/ST/STM32F4xx/Include
+INC_DIRS += $(STM32_LIB)/STM32F4xx_StdPeriph_Driver/inc
+INC_DIRS += $(STM32_LIB)/STM32F4xx_StdPeriph_Driver/inc/device_support
+INC_DIRS += $(STM32_LIB)/STM32F4xx_StdPeriph_Driver/inc/core_support
+INC_DIRS += $(STM32_LIB)/STM32_USB_Device_Library/Class/hid/inc
+INC_DIRS += $(STM32_LIB)/STM32_USB_Device_Library/Core/inc
+INC_DIRS += .
+
+INCLUDE = $(addprefix -I,$(INC_DIRS))
+
+CFLAGS  = -ggdb
+CFLAGS += -Os
+CFLAGS += -Wall -Wextra -Warray-bounds
+CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork
+CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
+CFLAGS += -ffreestanding -nostdlib
+
+DEFS    = -DUSE_STDPERIPH_DRIVER
+DEFS   += -DUSE_USB_OTG_FS=1
+
+LFLAGS  = -Tstm32_flash.ld
+
+#OBJS    = $(SRCS:.c=.o)
+
+###############################################################################
+
+.PHONY: all clean flash debug
+
+all: $(PROJ_NAME).elf
+
+$(PROJ_NAME).elf: $(SRCS)
+	$(CC) $(INCLUDE) $(DEFS) $(CFLAGS) $(LFLAGS) $^ -o $@ 
+	$(OBJCOPY) -O ihex $(PROJ_NAME).elf $(PROJ_NAME).hex
+	$(OBJCOPY) -O binary $(PROJ_NAME).elf $(PROJ_NAME).bin
+
+clean:
+	rm -f *.o $(PROJ_NAME).elf $(PROJ_NAME).hex $(PROJ_NAME).bin 
+
+flash:
+	st-flash write $(PROJ_NAME).bin 0x8000000
+
+debug:
+	$(GDB) -tui $(PROJ_NAME).elf -q -iex 'add-auto-load-safe-path .' .gdbinit
