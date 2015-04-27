@@ -2,7 +2,11 @@
 
 `$ cd Project/blinky`
 
+## Dev
+
 `$ make && make debug` (Run st-util first)
+
+## Burn
 
 `$ make flash`
 
