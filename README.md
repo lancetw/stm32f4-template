@@ -1,5 +1,7 @@
 #STM32F4Discovery template for Linux
 
+`$ cd Project/blinky`
+
 `$ make && make debug` (Run st-util first)
 
 `$ make flash`
