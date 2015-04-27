@@ -60,4 +60,4 @@ flash:
 	st-flash write $(PROJ_NAME).bin 0x8000000
 
 debug:
-	$(GDB) -tui $(PROJ_NAME).elf -q -iex 'add-auto-load-safe-path .' .gdbinit
+	$(GDB) -tui -q -iex "add-auto-load-safe-path .gdbinit" $(PROJ_NAME).elf
