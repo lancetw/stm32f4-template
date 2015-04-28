@@ -4,8 +4,8 @@
 
 #include "stm32f4_discovery.h"
 
-#define GREEN  LED4_PIN
 #define ORANGE LED3_PIN
+#define GREEN  LED4_PIN
 #define RED    LED5_PIN
 #define BLUE   LED6_PIN
 
