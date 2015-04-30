@@ -4,7 +4,7 @@
 STM32_LIB  = ../../Libraries
 STM32_UTIL = ../../Utilities
 
-vpath %.c $(STM32_LIB)/STM32F4xx_StdPeriph_Driver/src 
+vpath %.c $(STM32_LIB)/STM32F4xx_StdPeriph_Driver/src
 
 SRCS   += main.c
 
@@ -47,12 +47,12 @@ LFLAGS  = -Tstm32_flash.ld
 all: $(PROJ_NAME).elf
 
 $(PROJ_NAME).elf: $(SRCS)
-	$(CC) $(INCLUDE) $(DEFS) $(CFLAGS) $(LFLAGS) $^ -o $@ 
+	$(CC) $(INCLUDE) $(DEFS) $(CFLAGS) $(LFLAGS) $^ -o $@
 	$(OBJCOPY) -O ihex $(PROJ_NAME).elf $(PROJ_NAME).hex
 	$(OBJCOPY) -O binary $(PROJ_NAME).elf $(PROJ_NAME).bin
 
 clean:
-	rm -f *.o $(PROJ_NAME).elf $(PROJ_NAME).hex $(PROJ_NAME).bin 
+	rm -f *.o $(PROJ_NAME).elf $(PROJ_NAME).hex $(PROJ_NAME).bin
 
 flash:
 	st-flash write $(PROJ_NAME).bin 0x8000000

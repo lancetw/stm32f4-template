@@ -52,7 +52,7 @@ static void led_round(void)
     /* turn on led */
     GPIO_SetBits(LEDS_GPIO_PORT, leds[i]);
     delay(PAUSE_LONG);
-    
+
     GPIO_ResetBits(LEDS_GPIO_PORT, ALL_LEDS);
   }
 }
