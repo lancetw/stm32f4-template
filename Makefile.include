@@ -27,7 +27,7 @@ INC_DIRS += .
 INCLUDE = $(addprefix -I,$(INC_DIRS))
 
 CFLAGS  = -ggdb
-CFLAGS += -Os
+CFLAGS += -O0
 CFLAGS += -Wall -Wextra -Warray-bounds
 CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork
 CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
