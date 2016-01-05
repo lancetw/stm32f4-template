@@ -1,4 +1,4 @@
-#STM32F4Discovery template for Linux
+#STM32F4Discovery template for Linux and Mac OSX
 
 `$ cd Project/blinky`
 
