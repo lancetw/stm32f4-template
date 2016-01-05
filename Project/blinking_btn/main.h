@@ -1,5 +1,7 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef __MAIN_H
+#define __MAIN_H
+
+#include "stm32f4_discovery.h"
 
 static void setup(void);
 static void loop(void);
@@ -42,4 +44,4 @@ int main(void)
   return 0;
 }
 
-#endif /* MAIN_H */
+#endif /* __MAIN_H */

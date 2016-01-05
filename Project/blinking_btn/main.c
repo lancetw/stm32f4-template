@@ -3,7 +3,6 @@
   ref: www.cs.indiana.edu/~geobrown/book.pdf
 **/
 
-#include "stm32f4_discovery.h"
 #include "main.h"
 
 #define ORANGE LED3_PIN
